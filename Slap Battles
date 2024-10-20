@@ -1,0 +1,173 @@
+local AntiRuinaGui = Instance.new("ScreenGui")
+local AntiRuinaFrame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local ImageButton = Instance.new("ImageButton")
+local TextLabel = Instance.new("TextLabel")
+local StatusFrane = Instance.new("Frame")
+local Text = Instance.new("TextLabel")
+local STATUS = Instance.new("TextLabel")
+
+AntiRuinaGui.Name = "AntiRuinaGui"
+AntiRuinaGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+AntiRuinaGui.ResetOnSpawn = false
+
+AntiRuinaFrame.Name = "AntiRuinaFrame"
+AntiRuinaFrame.Parent = AntiRuinaGui
+AntiRuinaFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+AntiRuinaFrame.BorderColor3 = Color3.new(0, 0, 0)
+AntiRuinaFrame.BorderSizePixel = 0
+AntiRuinaFrame.Position = UDim2.new(0.913051188, 0, 0.0139082056, 0)
+AntiRuinaFrame.Size = UDim2.new(0.0657894686, 0, 0.109527119, 0)
+
+UICorner.Parent = AntiRuinaFrame
+
+ImageButton.Parent = AntiRuinaFrame
+ImageButton.BackgroundColor3 = Color3.new(1, 1, 1)
+ImageButton.BorderColor3 = Color3.new(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.0864455774, 0, 0.0682551041, 0)
+ImageButton.Size = UDim2.new(0.82432431, 0, 0.841269851, 0)
+ImageButton.Image = "http://www.roblox.com/asset/?id=14297005929"
+
+TextLabel.Parent = ImageButton
+TextLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+TextLabel.BackgroundTransparency = 1
+TextLabel.BorderColor3 = Color3.new(0, 0, 0)
+TextLabel.BorderSizePixel = 0
+TextLabel.Position = UDim2.new(-0.799290419, 0, 0.680742681, 0)
+TextLabel.Size = UDim2.new(2.70462656, 0, 0.793650806, 0)
+TextLabel.Font = Enum.Font.Arcade
+TextLabel.Text = "by kviks"
+TextLabel.TextColor3 = Color3.new(1, 1, 1)
+TextLabel.TextSize = 14
+TextLabel.TextStrokeTransparency = 0
+TextLabel.TextWrapped = true
+
+StatusFrane.Name = "StatusFrane"
+StatusFrane.Parent = AntiRuinaGui
+StatusFrane.BackgroundColor3 = Color3.new(1, 1, 1)
+StatusFrane.BackgroundTransparency = 1
+StatusFrane.BorderColor3 = Color3.new(0, 0, 0)
+StatusFrane.BorderSizePixel = 0
+StatusFrane.Position = UDim2.new(0.707681358, 0, 0.0139082056, 0)
+StatusFrane.Size = UDim2.new(0.0889046937, 0, 0.173852563, 0)
+
+Text.Name = "Text"
+Text.Parent = StatusFrane
+Text.BackgroundColor3 = Color3.new(1, 1, 1)
+Text.BackgroundTransparency = 1
+Text.BorderColor3 = Color3.new(0, 0, 0)
+Text.BorderSizePixel = 0
+Text.Position = UDim2.new(0.390427202, 0, -0.109999999, 0)
+Text.Size = UDim2.new(1.980142, 0, 0.419999987, 0)
+Text.Font = Enum.Font.LuckiestGuy
+Text.Text = "ANTIRUINA STATUS"
+Text.TextColor3 = Color3.new(1, 1, 1)
+Text.TextSize = 20
+Text.TextStrokeTransparency = 0
+Text.TextWrapped = true
+
+STATUS.Name = "STATUS"
+STATUS.Parent = StatusFrane
+STATUS.BackgroundColor3 = Color3.new(1, 1, 1)
+STATUS.BackgroundTransparency = 1
+STATUS.BorderColor3 = Color3.new(0, 0, 0)
+STATUS.BorderSizePixel = 0
+STATUS.Position = UDim2.new(0.859821737, 0, 0.200000003, 0)
+STATUS.Size = UDim2.new(1.02999997, 0, 0.209999993, 0)
+STATUS.Font = Enum.Font.Highway
+STATUS.Text = "DISABLED"
+STATUS.TextColor3 = Color3.new(1, 0, 0.0156863)
+STATUS.TextScaled = true
+STATUS.TextSize = 14
+STATUS.TextStrokeTransparency = 0
+STATUS.TextWrapped = true
+
+local function PZKOFGU_fake_script()
+    local script = Instance.new('LocalScript', ImageButton)
+
+    local status = script.Parent.Parent.Parent.StatusFrane.STATUS
+    local Players = game:GetService("Players")
+    local player = Players.LocalPlayer
+    local lastNotificationTime = 0
+    local notificationDelay = 10
+
+    script.Parent.MouseButton1Down:Connect(function()
+        if status.Text == "DISABLED" then
+            status.TextColor3 = Color3.fromRGB(60, 255, 0)
+            status.Text = "ENABLED"
+        else
+            status.TextColor3 = Color3.fromRGB(255, 0, 4)
+            status.Text = "DISABLED"
+        end
+
+        if status.Text == "ENABLED" then
+            print("enabledooo")
+            _G.antiruina = true
+            while _G.antiruina == true do
+                for i, v in pairs(game.Workspace:GetChildren()) do -- anti za hando
+                    if v.ClassName == "Part" and v.Name == "Part" then
+                        v:Destroy()
+                    end
+                end
+                for _, v in pairs(game.Players:GetPlayers()) do -- anti megarock
+                    if v.Character and v.Character:FindFirstChild("rock") then
+                        local rock = v.Character:FindFirstChild("rock")
+                        rock.CanTouch = false
+                        rock.CanQuery = false
+                    end
+                end
+                for _, player in pairs(game.Players:GetPlayers()) do -- anti sbeve
+                    local leaderstats = player:FindFirstChild("leaderstats")
+                    local glove = leaderstats and leaderstats:FindFirstChild("Glove")
+
+                    if glove and glove.Value == "Sbeve" then
+                        local currentTime = tick()
+                        if (currentTime - lastNotificationTime >= notificationDelay) then
+                            game.StarterGui:SetCore("SendNotification", {
+                                Title = "Sbeve Glove Detected";
+                                Text = player.Name .. " has a Sbeve glove.";
+                                Duration = 5;
+                            })
+                            lastNotificationTime = currentTime
+                        end
+                    end
+                end
+                for _, player in pairs(game.Players:GetPlayers()) do -- anti error
+                    local leaderstats = player:FindFirstChild("leaderstats")
+                    local glove = leaderstats and leaderstats:FindFirstChild("Glove")
+
+                    if glove and glove.Value == "Error" then
+                        local currentTime = tick()
+                        if (currentTime - lastNotificationTime >= notificationDelay) then
+                            game.StarterGui:SetCore("SendNotification", {
+                                Title = "Error Glove Detected";
+                                Text = player.Name .. " has a Error glove.";
+                                Duration = 5;
+                            })
+                            lastNotificationTime = currentTime
+                        end
+                    end
+                end
+                task.wait()
+            end
+
+        elseif status.Text == "DISABLED" then
+            print("disabledooo")
+            _G.antiruina = false
+        end
+    end)
+
+end
+coroutine.wrap(PZKOFGU_fake_script)()
+local function VRKJZZK_fake_script()
+    local script = Instance.new('LocalScript', AntiRuinaGui)
+
+
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "Join our Discord!";
+        Text = "https://discord.gg/rNwwTyCnSv";
+        Duration = 5;
+    })
+end
+coroutine.wrap(VRKJZZK_fake_script)()
